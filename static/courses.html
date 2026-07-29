@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Learn DevOps from Basics</title>
+        <style>
+            :root {
+                --bg: #f3f6fb;
+                --surface: rgba(255, 255, 255, 0.88);
+                --text: #0f172a;
+                --muted: #475569;
+                --accent: #0f766e;
+                --header: #0b1120;
+                --border: rgba(15, 23, 42, 0.08);
+                --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                color: var(--text);
+                background:
+                    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 34%),
+                    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 28%),
+                    linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+            }
+
+            header {
+                background: linear-gradient(135deg, rgba(11, 17, 32, 0.98), rgba(15, 23, 42, 0.94));
+                color: #fff;
+                padding: 1rem 1.25rem;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                backdrop-filter: blur(10px);
+            }
+
+            nav ul {
+                list-style: none;
+                padding: 0;
+                margin: 0 auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+                max-width: 1100px;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            nav ul li a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.7rem 1rem;
+                border-radius: 999px;
+                color: rgba(255, 255, 255, 0.92);
+                text-decoration: none;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+            }
+
+            nav ul li a:hover,
+            nav ul li a:focus-visible {
+                background: rgba(255, 255, 255, 0.12);
+                color: #fff;
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            main {
+                width: min(1100px, calc(100% - 2rem));
+                margin: 2rem auto;
+                padding: 0;
+                flex: 1;
+            }
+
+            section {
+                margin-bottom: 1.25rem;
+                padding: 1.5rem 1.6rem;
+                border: 1px solid var(--border);
+                border-radius: 22px;
+                background: var(--surface);
+                box-shadow: var(--shadow);
+                backdrop-filter: blur(14px);
+            }
+
+            h1,
+            h2 {
+                margin-top: 0;
+                line-height: 1.15;
+                color: var(--text);
+            }
+
+            h1 {
+                font-size: clamp(2rem, 4vw, 3.5rem);
+                margin-bottom: 0.8rem;
+            }
+
+            h2 {
+                font-size: clamp(1.25rem, 2vw, 1.6rem);
+                margin-bottom: 0.65rem;
+            }
+
+            p {
+                color: var(--muted);
+                line-height: 1.75;
+                margin-top: 0;
+                margin-bottom: 0.95rem;
+            }
+
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.55rem 0.9rem;
+                border-radius: 999px;
+                background: rgba(15, 118, 110, 0.1);
+                color: var(--accent);
+                font-weight: 700;
+                letter-spacing: 0.01em;
+            }
+
+            .course-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+                border-radius: 18px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 251, 255, 0.88));
+                border: 1px solid var(--border);
+            }
+
+            .card h3 {
+                margin: 0 0 0.6rem;
+                color: var(--text);
+            }
+
+            .card p {
+                margin-bottom: 0;
+            }
+
+            .video-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-top: 1rem;
+            }
+
+            .video-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.6rem 0.9rem;
+                border-radius: 999px;
+                background: rgba(15, 118, 110, 0.1);
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 700;
+                letter-spacing: 0.01em;
+                transition: transform 160ms ease, background-color 160ms ease;
+            }
+
+            .video-link:hover,
+            .video-link:focus-visible {
+                background: rgba(15, 118, 110, 0.16);
+                transform: translateY(-1px);
+                outline: none;
+            }
+
+            .badge-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-top: 1rem;
+            }
+
+            footer {
+                margin-top: auto;
+                padding: 1rem;
+                text-align: center;
+                color: rgba(255, 255, 255, 0.9);
+                background: linear-gradient(135deg, var(--header), #111827);
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            footer p {
+                margin: 0;
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            @media (max-width: 640px) {
+                header {
+                    padding-inline: 0.75rem;
+                }
+
+                nav ul {
+                    gap: 0.5rem;
+                }
+
+                nav ul li a {
+                    padding: 0.6rem 0.85rem;
+                    font-size: 0.95rem;
+                }
+
+                main {
+                    width: min(100% - 1rem, 1100px);
+                    margin: 1rem auto;
+                }
+
+                section {
+                    padding: 1.2rem 1rem;
+                    border-radius: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav aria-label="Site sections">
+                <ul>
+                    <li><a class="chip" href="/home">Home</a></li>
+                    <li><a class="chip" href="/about">About</a></li>
+                    <li><a class="chip" href="/contact">Contact</a></li>
+                    <li><a class="chip" href="/courses">Courses</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h1>Course Dashboard</h1>
+                <p>Curated DevOps video playlists grouped into learning paths and sample topics.</p>
+
+                <div class="badge-row">
+                    <span class="chip">Main tracks</span>
+                    <span class="chip">Additional tracks</span>
+                    <span class="chip">Troubleshooting</span>
+                </div>
+
+                <div class="course-grid">
+                    <article class="card">
+                        <h3>Core Path</h3>
+                        <p>Intro to DevOps, cloud basics, CI/CD, and release planning in a compact format.</p>
+                        <div class="video-links">
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa" target="_blank" rel="noopener noreferrer">DevOps Zero to Hero</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Cloud Path</h3>
+                        <p>Cloud learning modules for AWS and Azure with clean milestone notes.</p>
+                        <div class="video-links">
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLNOxX0RfndiYSt1Le9azze" target="_blank" rel="noopener noreferrer">AWS Zero to Hero</a>
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR" target="_blank" rel="noopener noreferrer">Azure Zero to Hero</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Automation Path</h3>
+                        <p>Placeholder learning blocks for Terraform, Ansible, Python, and GitOps workflows.</p>
+                        <div class="video-links">
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvI0O4PeKVV1-yJoX2AqIWuf" target="_blank" rel="noopener noreferrer">Terraform Zero to Hero</a>
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLxd5nmtmORCmhD5jkrNbuE" target="_blank" rel="noopener noreferrer">Ansible Zero to Hero</a>
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKu7OZpgj1-MzJFqZ8RBp6f" target="_blank" rel="noopener noreferrer">GitOps Zero to Hero</a>
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKwTyYNJCUwGPvql0TrsPgv" target="_blank" rel="noopener noreferrer">Python Zero to Hero</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h3>Debugging Path</h3>
+                        <p>Practice cards for networking fundamentals and Kubernetes troubleshooting.</p>
+                        <div class="video-links">
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKv4MFW35XRskZbQbrt6ep-" target="_blank" rel="noopener noreferrer">Networking Fundamentals</a>
+                            <a class="video-link" href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIrFBI1farpLS_OSUBXJMLX" target="_blank" rel="noopener noreferrer">Troubleshooting Kubernetes</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy;  Nisal Sandeep</p>
+        </footer>
+    </body>
+</html>
