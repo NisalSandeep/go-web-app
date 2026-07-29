@@ -85,11 +85,16 @@ jobs:
       run: |
         sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm/go-web-app-chart/values.yaml
 
+    - name: Update tag in Kubernetes manifest
+      run: |
+        sed -i 's/image: nisalsandeep\/go-web-app:.*/image: nisalsandeep\/go-web-app:${{github.run_id}}/' k8s/manifests/deployment.yaml
+
     - name: Commit and push changes
       run: |
         git config --global user.email "sandeep-as22018@stu.kln.ac.lk"
         git config --global user.name "NisalSandeep"
         git add helm/go-web-app-chart/values.yaml
+        git add k8s/manifests/deployment.yaml
         git commit -m "Update tag in Helm chart"
         git push
 
